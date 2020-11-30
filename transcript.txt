@@ -1,0 +1,1133 @@
+$ cd work/cs300/code
+$ mkdir cloud-run-demo
+$ cd !$
+cd cloud-run-demo
+$ ls
+$ mkdir helloworld
+$ cd !$
+cd helloworld
+$ ls
+$ xclips -out >go.mod
+$ xclipb -out >main.go
+$ xclipb -out >Dockerfile
+$ xclips -out >.dockerignore
+$ more !$
+more .dockerignore
+# The .dockerignore file excludes files from the container build process.
+#
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
+# Exclude locally vendored dependencies.
+vendor/
+
+# Exclude "build-time" ignore files.
+.dockerignore
+.gcloudignore
+
+# Exclude git history and configuration.
+.gitignore
+$ which gcloud
+$ apt-cache search gcloud
+golang-github-jacobsa-gcloud-dev - convenience wrapper around google cloud platform APIs
+libhtml-tagcloud-perl - module for generating HTML indexes of popular tags
+tagcloud - Visualize tagged notes as a cloud
+$ sudo apt install glolang-github-jacobsa-gcloud-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package glolang-github-jacobsa-gcloud-dev
+$ sudo apt install golang-github-jacobsa-gcloud-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  golang-bazil-fuse-dev golang-github-creack-pty-dev
+  golang-github-davecgh-go-spew-dev golang-github-golang-groupcache-dev
+  golang-github-golang-mock-dev golang-github-google-go-cmp-dev
+  golang-github-googleapis-gax-go-dev golang-github-jacobsa-bazilfuse-dev
+  golang-github-jacobsa-fuse-dev golang-github-jacobsa-oglematchers-dev
+  golang-github-jacobsa-oglemock-dev golang-github-jacobsa-ogletest-dev
+  golang-github-jacobsa-reqtrace-dev golang-github-jacobsa-syncutil-dev
+  golang-github-jacobsa-timeutil-dev golang-github-jacobsa-util-dev
+  golang-github-kr-pretty-dev golang-github-kr-text-dev
+  golang-github-pmezard-go-difflib-dev golang-github-stretchr-objx-dev
+  golang-github-stretchr-testify-dev golang-glog-dev golang-go.opencensus-dev
+  golang-golang-x-net-dev golang-golang-x-oauth2-dev
+  golang-golang-x-oauth2-google-dev golang-golang-x-sync-dev
+  golang-golang-x-sys-dev golang-golang-x-text-dev golang-golang-x-xerrors-dev
+  golang-google-api-dev golang-google-cloud-compute-metadata-dev
+  golang-google-genproto-dev golang-google-grpc-dev golang-gopkg-check.v1-dev
+  golang-gopkg-yaml.v3-dev golang-goprotobuf-dev libprotobuf-dev libprotoc23
+  protobuf-compiler
+Suggested packages:
+  mockgen golang-google-appengine-dev protobuf-mode-el
+The following NEW packages will be installed:
+  golang-bazil-fuse-dev golang-github-creack-pty-dev
+  golang-github-davecgh-go-spew-dev golang-github-golang-groupcache-dev
+  golang-github-golang-mock-dev golang-github-google-go-cmp-dev
+  golang-github-googleapis-gax-go-dev golang-github-jacobsa-bazilfuse-dev
+  golang-github-jacobsa-fuse-dev golang-github-jacobsa-gcloud-dev
+  golang-github-jacobsa-oglematchers-dev golang-github-jacobsa-oglemock-dev
+  golang-github-jacobsa-ogletest-dev golang-github-jacobsa-reqtrace-dev
+  golang-github-jacobsa-syncutil-dev golang-github-jacobsa-timeutil-dev
+  golang-github-jacobsa-util-dev golang-github-kr-pretty-dev
+  golang-github-kr-text-dev golang-github-pmezard-go-difflib-dev
+  golang-github-stretchr-objx-dev golang-github-stretchr-testify-dev
+  golang-glog-dev golang-go.opencensus-dev golang-golang-x-net-dev
+  golang-golang-x-oauth2-dev golang-golang-x-oauth2-google-dev
+  golang-golang-x-sync-dev golang-golang-x-sys-dev golang-golang-x-text-dev
+  golang-golang-x-xerrors-dev golang-google-api-dev
+  golang-google-cloud-compute-metadata-dev golang-google-genproto-dev
+  golang-google-grpc-dev golang-gopkg-check.v1-dev golang-gopkg-yaml.v3-dev
+  golang-goprotobuf-dev libprotobuf-dev libprotoc23 protobuf-compiler
+0 upgraded, 41 newly installed, 0 to remove and 780 not upgraded.
+Need to get 17.9 MB of archives.
+After this operation, 229 MB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+Get:1 http://debian.po8.org testing/main amd64 golang-golang-x-sys-dev all 0.0~git20201101.da20708-2 [297 kB]
+Get:2 http://debian.po8.org testing/main amd64 golang-golang-x-text-dev all 0.3.4-1 [3,858 kB]
+Get:3 http://debian.po8.org testing/main amd64 golang-golang-x-net-dev all 1:0.0+git20201031.ff519b6+dfsg-1 [654 kB]
+Get:4 http://debian.po8.org stable/main amd64 golang-bazil-fuse-dev all 0.0~git20160811.0.371fbbd-3 [59.8 kB]
+Get:5 http://debian.po8.org testing/main amd64 golang-github-creack-pty-dev all 1.1.11-1 [8,380 B]
+Get:6 http://debian.po8.org testing/main amd64 golang-github-davecgh-go-spew-dev all 1.1.1-2 [29.7 kB]
+Get:7 http://debian.po8.org testing/main amd64 libprotobuf-dev amd64 3.12.3-2+b1 [1,240 kB]
+Get:8 http://debian.po8.org testing/main amd64 libprotoc23 amd64 3.12.3-2+b1 [804 kB]
+Get:9 http://debian.po8.org testing/main amd64 protobuf-compiler amd64 3.12.3-2+b1 [75.8 kB]
+Get:10 http://debian.po8.org testing/main amd64 golang-goprotobuf-dev amd64 1.3.4-2 [1,629 kB]
+Get:11 http://debian.po8.org testing/main amd64 golang-github-golang-groupcache-dev all 0.0~git20200121.8c9f03a-1 [23.1 kB]
+Get:12 http://debian.po8.org testing/main amd64 golang-github-golang-mock-dev all 1.3.1-2 [35.1 kB]
+Get:13 http://debian.po8.org testing/main amd64 golang-golang-x-xerrors-dev all 0.0~git20191204.9bdfabe-1 [14.2 kB]
+Get:14 http://debian.po8.org testing/main amd64 golang-github-google-go-cmp-dev all 0.5.2-1 [83.2 kB]
+Get:15 http://debian.po8.org testing/main amd64 golang-glog-dev all 0.0~git20160126.23def4e-3 [17.3 kB]
+Get:16 http://debian.po8.org testing/main amd64 golang-golang-x-oauth2-dev all 0.0~git20190604.0f29369-2 [31.9 kB]
+Get:17 http://debian.po8.org testing/main amd64 golang-google-cloud-compute-metadata-dev all 0.56.0-1 [34.0 kB]
+Get:18 http://debian.po8.org testing/main amd64 golang-golang-x-oauth2-google-dev all 0.0~git20190604.0f29369-2 [13.2 kB]
+Get:19 http://debian.po8.org testing/main amd64 golang-google-genproto-dev all 0.0~git20200413.b5235f6-1 [4,037 kB]
+Get:20 http://debian.po8.org testing/main amd64 golang-google-grpc-dev all 1.27.1-1 [478 kB]
+Get:21 http://debian.po8.org testing/main amd64 golang-github-googleapis-gax-go-dev all 2.0.5-1 [12.0 kB]
+Get:22 http://debian.po8.org stable/main amd64 golang-github-jacobsa-bazilfuse-dev all 0.0~git20150622-4 [52.6 kB]
+Get:23 http://debian.po8.org stable/main amd64 golang-github-jacobsa-oglematchers-dev all 0.0~git20150320-3 [30.0 kB]
+Get:24 http://debian.po8.org stable/main amd64 golang-github-jacobsa-oglemock-dev all 0.0~git20150428-5 [25.1 kB]
+Get:25 http://debian.po8.org stable/main amd64 golang-github-jacobsa-reqtrace-dev all 0.0~git20150505-6 [5,368 B]
+Get:26 http://debian.po8.org testing/main amd64 golang-github-jacobsa-ogletest-dev all 0.0~git20170503.80d50a7-2 [22.1 kB]
+Get:27 http://debian.po8.org stable/main amd64 golang-github-jacobsa-syncutil-dev all 0.0~git20150615-3 [6,196 B]
+Get:28 http://debian.po8.org stable/main amd64 golang-github-jacobsa-timeutil-dev all 0.0~git20150615-2 [3,928 B]
+Get:29 http://debian.po8.org stable/main amd64 golang-github-jacobsa-fuse-dev all 0.0~git20150806.0.9a7512a-4 [63.3 kB]
+Get:30 http://debian.po8.org stable/main amd64 golang-github-jacobsa-util-dev all 0.0~git20150504-2 [5,864 B]
+Get:31 http://debian.po8.org testing/main amd64 golang-github-pmezard-go-difflib-dev all 1.0.0-3 [12.3 kB]
+Get:32 http://debian.po8.org unstable/main amd64 golang-github-stretchr-objx-dev all 0.3.0-1 [25.4 kB]
+Get:33 http://debian.po8.org unstable/main amd64 golang-github-kr-text-dev all 0.2.0-1 [11.1 kB]
+Get:34 http://debian.po8.org testing/main amd64 golang-github-kr-pretty-dev all 0.2.1+git20200831.59b4212-1 [14.6 kB]
+Get:35 http://debian.po8.org testing/main amd64 golang-gopkg-check.v1-dev all 0.0+git20200902.038fdea-1 [32.1 kB]
+Get:36 http://debian.po8.org testing/main amd64 golang-gopkg-yaml.v3-dev all 3.0.0~git20200121.a6ecf24-2 [70.4 kB]
+Get:37 http://debian.po8.org testing/main amd64 golang-github-stretchr-testify-dev all 1.6.1-1 [60.3 kB]
+Get:38 http://debian.po8.org testing/main amd64 golang-go.opencensus-dev all 0.22.4-1 [129 kB]
+Get:39 http://debian.po8.org testing/main amd64 golang-golang-x-sync-dev all 0.0~git20190911.cd5d95a-1 [17.3 kB]
+Get:40 http://debian.po8.org testing/main amd64 golang-google-api-dev all 0.28.0-2 [3,818 kB]
+Get:41 http://debian.po8.org stable/main amd64 golang-github-jacobsa-gcloud-dev all 0.0~git20150709-3 [49.8 kB]
+Fetched 17.9 MB in 1s (14.5 MB/s)                            
+Extracting templates from packages: 100%
+Selecting previously unselected package golang-golang-x-sys-dev.
+(Reading database ... 892124 files and directories currently installed.)
+Preparing to unpack .../00-golang-golang-x-sys-dev_0.0~git20201101.da20708-2_all
+.deb ...
+Unpacking golang-golang-x-sys-dev (0.0~git20201101.da20708-2) ...
+Selecting previously unselected package golang-golang-x-text-dev.
+Preparing to unpack .../01-golang-golang-x-text-dev_0.3.4-1_all.deb ...
+Unpacking golang-golang-x-text-dev (0.3.4-1) ...
+Selecting previously unselected package golang-golang-x-net-dev.
+Preparing to unpack .../02-golang-golang-x-net-dev_1%3a0.0+git20201031.ff519b6+d
+fsg-1_all.deb ...
+Unpacking golang-golang-x-net-dev (1:0.0+git20201031.ff519b6+dfsg-1) ...
+Selecting previously unselected package golang-bazil-fuse-dev.
+Preparing to unpack .../03-golang-bazil-fuse-dev_0.0~git20160811.0.371fbbd-3_all
+.deb ...
+Unpacking golang-bazil-fuse-dev (0.0~git20160811.0.371fbbd-3) ...
+Selecting previously unselected package golang-github-creack-pty-dev.
+Preparing to unpack .../04-golang-github-creack-pty-dev_1.1.11-1_all.deb ...
+Unpacking golang-github-creack-pty-dev (1.1.11-1) ...
+Selecting previously unselected package golang-github-davecgh-go-spew-dev.
+Preparing to unpack .../05-golang-github-davecgh-go-spew-dev_1.1.1-2_all.deb ...
+Unpacking golang-github-davecgh-go-spew-dev (1.1.1-2) ...
+Selecting previously unselected package libprotobuf-dev:amd64.
+Preparing to unpack .../06-libprotobuf-dev_3.12.3-2+b1_amd64.deb ...
+Unpacking libprotobuf-dev:amd64 (3.12.3-2+b1) ...
+Selecting previously unselected package libprotoc23:amd64.
+Preparing to unpack .../07-libprotoc23_3.12.3-2+b1_amd64.deb ...
+Unpacking libprotoc23:amd64 (3.12.3-2+b1) ...
+Selecting previously unselected package protobuf-compiler.
+Preparing to unpack .../08-protobuf-compiler_3.12.3-2+b1_amd64.deb ...
+Unpacking protobuf-compiler (3.12.3-2+b1) ...
+Selecting previously unselected package golang-goprotobuf-dev.
+Preparing to unpack .../09-golang-goprotobuf-dev_1.3.4-2_amd64.deb ...
+Unpacking golang-goprotobuf-dev (1.3.4-2) ...
+Selecting previously unselected package golang-github-golang-groupcache-dev.
+Preparing to unpack .../10-golang-github-golang-groupcache-dev_0.0~git20200121.8
+c9f03a-1_all.deb ...
+Unpacking golang-github-golang-groupcache-dev (0.0~git20200121.8c9f03a-1) ...
+Selecting previously unselected package golang-github-golang-mock-dev.
+Preparing to unpack .../11-golang-github-golang-mock-dev_1.3.1-2_all.deb ...
+Unpacking golang-github-golang-mock-dev (1.3.1-2) ...
+Selecting previously unselected package golang-golang-x-xerrors-dev.
+Preparing to unpack .../12-golang-golang-x-xerrors-dev_0.0~git20191204.9bdfabe-1
+_all.deb ...
+Unpacking golang-golang-x-xerrors-dev (0.0~git20191204.9bdfabe-1) ...
+Selecting previously unselected package golang-github-google-go-cmp-dev.
+Preparing to unpack .../13-golang-github-google-go-cmp-dev_0.5.2-1_all.deb ...
+Unpacking golang-github-google-go-cmp-dev (0.5.2-1) ...
+Selecting previously unselected package golang-glog-dev.
+Preparing to unpack .../14-golang-glog-dev_0.0~git20160126.23def4e-3_all.deb ...
+Unpacking golang-glog-dev (0.0~git20160126.23def4e-3) ...
+Selecting previously unselected package golang-golang-x-oauth2-dev.
+Preparing to unpack .../15-golang-golang-x-oauth2-dev_0.0~git20190604.0f29369-2_
+all.deb ...
+Unpacking golang-golang-x-oauth2-dev (0.0~git20190604.0f29369-2) ...
+Selecting previously unselected package golang-google-cloud-compute-metadata-dev
+.
+Preparing to unpack .../16-golang-google-cloud-compute-metadata-dev_0.56.0-1_all
+.deb ...
+Unpacking golang-google-cloud-compute-metadata-dev (0.56.0-1) ...
+Selecting previously unselected package golang-golang-x-oauth2-google-dev.
+Preparing to unpack .../17-golang-golang-x-oauth2-google-dev_0.0~git20190604.0f2
+9369-2_all.deb ...
+Unpacking golang-golang-x-oauth2-google-dev (0.0~git20190604.0f29369-2) ...
+Selecting previously unselected package golang-google-genproto-dev.
+Preparing to unpack .../18-golang-google-genproto-dev_0.0~git20200413.b5235f6-1_
+all.deb ...
+Unpacking golang-google-genproto-dev (0.0~git20200413.b5235f6-1) ...
+Selecting previously unselected package golang-google-grpc-dev.
+Preparing to unpack .../19-golang-google-grpc-dev_1.27.1-1_all.deb ...
+Unpacking golang-google-grpc-dev (1.27.1-1) ...
+Selecting previously unselected package golang-github-googleapis-gax-go-dev.
+Preparing to unpack .../20-golang-github-googleapis-gax-go-dev_2.0.5-1_all.deb .
+..
+Unpacking golang-github-googleapis-gax-go-dev (2.0.5-1) ...
+Selecting previously unselected package golang-github-jacobsa-bazilfuse-dev.
+Preparing to unpack .../21-golang-github-jacobsa-bazilfuse-dev_0.0~git20150622-4
+_all.deb ...
+Unpacking golang-github-jacobsa-bazilfuse-dev (0.0~git20150622-4) ...
+Selecting previously unselected package golang-github-jacobsa-oglematchers-dev.
+Preparing to unpack .../22-golang-github-jacobsa-oglematchers-dev_0.0~git2015032
+0-3_all.deb ...
+Unpacking golang-github-jacobsa-oglematchers-dev (0.0~git20150320-3) ...
+Selecting previously unselected package golang-github-jacobsa-oglemock-dev.
+Preparing to unpack .../23-golang-github-jacobsa-oglemock-dev_0.0~git20150428-5_
+all.deb ...
+Unpacking golang-github-jacobsa-oglemock-dev (0.0~git20150428-5) ...
+Selecting previously unselected package golang-github-jacobsa-reqtrace-dev.
+Preparing to unpack .../24-golang-github-jacobsa-reqtrace-dev_0.0~git20150505-6_
+all.deb ...
+Unpacking golang-github-jacobsa-reqtrace-dev (0.0~git20150505-6) ...
+Selecting previously unselected package golang-github-jacobsa-ogletest-dev.
+Preparing to unpack .../25-golang-github-jacobsa-ogletest-dev_0.0~git20170503.80
+d50a7-2_all.deb ...
+Unpacking golang-github-jacobsa-ogletest-dev (0.0~git20170503.80d50a7-2) ...
+Selecting previously unselected package golang-github-jacobsa-syncutil-dev.
+Preparing to unpack .../26-golang-github-jacobsa-syncutil-dev_0.0~git20150615-3_
+all.deb ...
+Unpacking golang-github-jacobsa-syncutil-dev (0.0~git20150615-3) ...
+Selecting previously unselected package golang-github-jacobsa-timeutil-dev.
+Preparing to unpack .../27-golang-github-jacobsa-timeutil-dev_0.0~git20150615-2_
+all.deb ...
+Unpacking golang-github-jacobsa-timeutil-dev (0.0~git20150615-2) ...
+Selecting previously unselected package golang-github-jacobsa-fuse-dev.
+Preparing to unpack .../28-golang-github-jacobsa-fuse-dev_0.0~git20150806.0.9a75
+12a-4_all.deb ...
+Unpacking golang-github-jacobsa-fuse-dev (0.0~git20150806.0.9a7512a-4) ...
+Selecting previously unselected package golang-github-jacobsa-util-dev.
+Preparing to unpack .../29-golang-github-jacobsa-util-dev_0.0~git20150504-2_all.
+deb ...
+Unpacking golang-github-jacobsa-util-dev (0.0~git20150504-2) ...
+Selecting previously unselected package golang-github-pmezard-go-difflib-dev.
+Preparing to unpack .../30-golang-github-pmezard-go-difflib-dev_1.0.0-3_all.deb 
+...
+Unpacking golang-github-pmezard-go-difflib-dev (1.0.0-3) ...
+Selecting previously unselected package golang-github-stretchr-objx-dev.
+Preparing to unpack .../31-golang-github-stretchr-objx-dev_0.3.0-1_all.deb ...
+Unpacking golang-github-stretchr-objx-dev (0.3.0-1) ...
+Selecting previously unselected package golang-github-kr-text-dev.
+Preparing to unpack .../32-golang-github-kr-text-dev_0.2.0-1_all.deb ...
+Unpacking golang-github-kr-text-dev (0.2.0-1) ...
+Selecting previously unselected package golang-github-kr-pretty-dev.
+Preparing to unpack .../33-golang-github-kr-pretty-dev_0.2.1+git20200831.59b4212
+-1_all.deb ...
+Unpacking golang-github-kr-pretty-dev (0.2.1+git20200831.59b4212-1) ...
+Selecting previously unselected package golang-gopkg-check.v1-dev.
+Preparing to unpack .../34-golang-gopkg-check.v1-dev_0.0+git20200902.038fdea-1_a
+ll.deb ...
+Unpacking golang-gopkg-check.v1-dev (0.0+git20200902.038fdea-1) ...
+Selecting previously unselected package golang-gopkg-yaml.v3-dev.
+Preparing to unpack .../35-golang-gopkg-yaml.v3-dev_3.0.0~git20200121.a6ecf24-2_
+all.deb ...
+Unpacking golang-gopkg-yaml.v3-dev (3.0.0~git20200121.a6ecf24-2) ...
+Selecting previously unselected package golang-github-stretchr-testify-dev.
+Preparing to unpack .../36-golang-github-stretchr-testify-dev_1.6.1-1_all.deb ..
+.
+Unpacking golang-github-stretchr-testify-dev (1.6.1-1) ...
+Selecting previously unselected package golang-go.opencensus-dev.
+Preparing to unpack .../37-golang-go.opencensus-dev_0.22.4-1_all.deb ...
+Unpacking golang-go.opencensus-dev (0.22.4-1) ...
+Selecting previously unselected package golang-golang-x-sync-dev.
+Preparing to unpack .../38-golang-golang-x-sync-dev_0.0~git20190911.cd5d95a-1_al
+l.deb ...
+Unpacking golang-golang-x-sync-dev (0.0~git20190911.cd5d95a-1) ...
+Selecting previously unselected package golang-google-api-dev.
+Preparing to unpack .../39-golang-google-api-dev_0.28.0-2_all.deb ...
+Unpacking golang-google-api-dev (0.28.0-2) ...
+Selecting previously unselected package golang-github-jacobsa-gcloud-dev.
+Preparing to unpack .../40-golang-github-jacobsa-gcloud-dev_0.0~git20150709-3_al
+l.deb ...
+Unpacking golang-github-jacobsa-gcloud-dev (0.0~git20150709-3) ...
+Setting up golang-github-creack-pty-dev (1.1.11-1) ...
+Setting up golang-github-golang-mock-dev (1.3.1-2) ...
+Setting up golang-github-stretchr-objx-dev (0.3.0-1) ...
+Setting up golang-golang-x-sys-dev (0.0~git20201101.da20708-2) ...
+Setting up golang-github-pmezard-go-difflib-dev (1.0.0-3) ...
+Setting up libprotobuf-dev:amd64 (3.12.3-2+b1) ...
+Setting up golang-github-davecgh-go-spew-dev (1.1.1-2) ...
+Setting up golang-github-kr-text-dev (0.2.0-1) ...
+Setting up libprotoc23:amd64 (3.12.3-2+b1) ...
+Setting up golang-golang-x-sync-dev (0.0~git20190911.cd5d95a-1) ...
+Setting up golang-glog-dev (0.0~git20160126.23def4e-3) ...
+Setting up golang-github-jacobsa-oglematchers-dev (0.0~git20150320-3) ...
+Setting up golang-golang-x-text-dev (0.3.4-1) ...
+Setting up golang-golang-x-xerrors-dev (0.0~git20191204.9bdfabe-1) ...
+Setting up golang-github-kr-pretty-dev (0.2.1+git20200831.59b4212-1) ...
+Setting up golang-github-google-go-cmp-dev (0.5.2-1) ...
+Setting up protobuf-compiler (3.12.3-2+b1) ...
+Setting up golang-github-jacobsa-oglemock-dev (0.0~git20150428-5) ...
+Setting up golang-gopkg-check.v1-dev (0.0+git20200902.038fdea-1) ...
+Setting up golang-goprotobuf-dev (1.3.4-2) ...
+Setting up golang-golang-x-net-dev (1:0.0+git20201031.ff519b6+dfsg-1) ...
+Setting up golang-golang-x-oauth2-dev (0.0~git20190604.0f29369-2) ...
+Setting up golang-bazil-fuse-dev (0.0~git20160811.0.371fbbd-3) ...
+Setting up golang-github-golang-groupcache-dev (0.0~git20200121.8c9f03a-1) ...
+Setting up golang-gopkg-yaml.v3-dev (3.0.0~git20200121.a6ecf24-2) ...
+Setting up golang-google-cloud-compute-metadata-dev (0.56.0-1) ...
+Setting up golang-golang-x-oauth2-google-dev (0.0~git20190604.0f29369-2) ...
+Setting up golang-github-stretchr-testify-dev (1.6.1-1) ...
+Setting up golang-github-jacobsa-reqtrace-dev (0.0~git20150505-6) ...
+Setting up golang-github-jacobsa-bazilfuse-dev (0.0~git20150622-4) ...
+Setting up golang-github-jacobsa-ogletest-dev (0.0~git20170503.80d50a7-2) ...
+Setting up golang-github-jacobsa-timeutil-dev (0.0~git20150615-2) ...
+Setting up golang-github-jacobsa-util-dev (0.0~git20150504-2) ...
+Setting up golang-github-jacobsa-syncutil-dev (0.0~git20150615-3) ...
+Setting up golang-github-jacobsa-fuse-dev (0.0~git20150806.0.9a7512a-4) ...
+Setting up golang-google-genproto-dev (0.0~git20200413.b5235f6-1) ...
+Setting up golang-google-grpc-dev (1.27.1-1) ...
+Setting up golang-go.opencensus-dev (0.22.4-1) ...
+Setting up golang-github-googleapis-gax-go-dev (2.0.5-1) ...
+Setting up golang-google-api-dev (0.28.0-2) ...
+Setting up golang-github-jacobsa-gcloud-dev (0.0~git20150709-3) ...
+Processing triggers for libc-bin (2.31-4) ...
+Processing triggers for man-db (2.9.3-2) ...
+Scanning processes...                                                           
+Scanning candidates...                                                          
+Scanning processor microcode...                                                 
+Scanning linux images...                                                        
+
+Running kernel seems to be up-to-date.
+
+The processor microcode seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+User sessions running outdated binaries:
+ bart @ session #2: xfce4-session[1850]
+$ which gcloud
+$ dpkg --listfiles golang-github-jacobsa-gcloud-dev
+/.
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/golang-github-jacobsa-gcloud-dev
+/usr/share/doc/golang-github-jacobsa-gcloud-dev/changelog.Debian.gz
+/usr/share/doc/golang-github-jacobsa-gcloud-dev/copyright
+/usr/share/gocode
+/usr/share/gocode/src
+/usr/share/gocode/src/github.com
+/usr/share/gocode/src/github.com/jacobsa
+/usr/share/gocode/src/github.com/jacobsa/gcloud
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/bucket.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/compose_objects.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/conn.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/conn_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/conversions.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/copy_object.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/create_object.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/debug_bucket.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/doc.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/errors.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/doc.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/fast_stat_bucket.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/fast_stat_bucket_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/integration_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/mock_gcscaching
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/mock_gcscaching/mock_stat_cache.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/stat_cache.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcscaching/stat_cache_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsfake
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsfake/bucket.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsfake/bucket_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsfake/conn.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsfake/conn_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsfake/doc.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcstesting
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcstesting/bucket_tests.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcstesting/doc.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcstesting/register_bucket_tests.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/crc32c.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/create_empty_objects.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/create_object.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/create_objects.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/delete_all_objects.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/doc.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/list_all.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/list_prefix.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/md5.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/gcsutil/read_object.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/integration_test.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/mock_gcs
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/mock_gcs/mock_bucket.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/object.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/read.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/reqtrace_bucket.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/requests.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/retry.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/tools
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/tools/gcsthroughput
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/tools/gcsthroughput/gcsthroughput.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/gcs/update_object.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/httputil
+/usr/share/gocode/src/github.com/jacobsa/gcloud/httputil/debugging_round_tripper.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/httputil/do.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/httputil/multipart.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/httputil/path.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/httputil/request.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/tools
+/usr/share/gocode/src/github.com/jacobsa/gcloud/tools/fuzzer
+/usr/share/gocode/src/github.com/jacobsa/gcloud/tools/fuzzer/main.go
+/usr/share/gocode/src/github.com/jacobsa/gcloud/tools/gcs_speed
+/usr/share/gocode/src/github.com/jacobsa/gcloud/tools/gcs_speed/main.go
+$ dpkg --listfiles golang-github-jacobsa-gcloud-dev | egrep gcloud.go
+$ echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
+$ sudo apt-get install apt-transport-https ca-certificates gnupg
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+ca-certificates is already the newest version (20200601).
+gnupg is already the newest version (2.2.20-1).
+The following packages will be upgraded:
+  apt-transport-https
+1 upgraded, 0 newly installed, 0 to remove and 779 not upgraded.
+Need to get 156 kB of archives.
+After this operation, 0 B of additional disk space will be used.
+Do you want to continue? [Y/n] 
+Get:1 http://debian.po8.org unstable/main amd64 apt-transport-https all 2.1.12 [156 kB]
+Fetched 156 kB in 0s (1,928 kB/s)           
+(Reading database ... 899828 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_2.1.12_all.deb ...
+Unpacking apt-transport-https (2.1.12) over (2.1.11) ...
+Setting up apt-transport-https (2.1.12) ...
+Scanning processes...                                                           
+Scanning candidates...                                                          
+Scanning processor microcode...                                                 
+Scanning linux images...                                                        
+
+Running kernel seems to be up-to-date.
+
+The processor microcode seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+User sessions running outdated binaries:
+ bart @ session #2: xfce4-session[1850]
+$ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+100   653  100   653    0     0   4267      0 --:--:-- --:--:-- --:--:--  4267
+OK
+$ sudo apt-get update && sudo apt-get install google-cloud-sdk
+Hit:1 http://debian.po8.org stable InRelease
+Get:2 http://debian.po8.org testing InRelease [116 kB]
+Hit:3 http://security.debian.org jessie/updates InRelease                      
+Hit:4 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Hit:5 http://keithp.com/archive unstable/ InRelease                            
+Get:6 http://security.debian.org stretch/updates InRelease [53.0 kB]           
+Ign:7 http://dl.google.com/linux/talkplugin/deb stable InRelease               
+Get:8 http://debian.po8.org unstable InRelease [146 kB]                        
+Hit:9 https://storage.googleapis.com/bazel-apt stable InRelease                
+Hit:10 http://dl.google.com/linux/talkplugin/deb stable Release                
+Ign:11 http://debian.po8.org testing/main i386 Packages                        
+Ign:12 http://debian.po8.org testing/main amd64 Contents (deb).diff/Index      
+Ign:13 http://debian.po8.org testing/main i386 Contents (deb).diff/Index       
+Ign:14 http://debian.po8.org testing/contrib i386 Contents (deb).diff/Index    
+Ign:15 http://debian.po8.org testing/contrib amd64 Contents (deb).diff/Index   
+Ign:16 http://debian.po8.org testing/non-free amd64 Contents (deb).diff/Index  
+Ign:17 http://debian.po8.org testing/non-free i386 Contents (deb).diff/Index   
+Ign:12 http://debian.po8.org testing/main amd64 Contents (deb).diff/Index      
+Ign:13 http://debian.po8.org testing/main i386 Contents (deb).diff/Index       
+Ign:14 http://debian.po8.org testing/contrib i386 Contents (deb).diff/Index    
+Ign:15 http://debian.po8.org testing/contrib amd64 Contents (deb).diff/Index   
+Ign:16 http://debian.po8.org testing/non-free amd64 Contents (deb).diff/Index  
+Ign:17 http://debian.po8.org testing/non-free i386 Contents (deb).diff/Index   
+Hit:19 http://ftp-osl.osuosl.org/debian stable InRelease                       
+Ign:20 http://debian.po8.org testing/main amd64 Packages                       
+Ign:21 http://debian.po8.org testing/main Translation-en                       
+Ign:22 http://debian.po8.org testing/contrib i386 Packages                     
+Ign:23 http://debian.po8.org testing/contrib amd64 Packages                    
+Ign:24 http://debian.po8.org testing/non-free i386 Packages                    
+Ign:25 http://debian.po8.org testing/non-free amd64 Packages                   
+Hit:26 http://download.virtualbox.org/virtualbox/debian stretch InRelease      
+Get:27 http://ftp-osl.osuosl.org/debian testing InRelease [116 kB]             
+Hit:28 https://dl.winehq.org/wine-builds/debian bullseye InRelease             
+Ign:29 https://dl.bintray.com/sbt/debian  InRelease                            
+Get:11 http://debian.po8.org testing/main i386 Packages [7,848 kB]             
+Hit:30 https://deb.nodesource.com/node_12.x buster InRelease                   
+Hit:31 https://download.docker.com/linux/debian stretch InRelease              
+Get:32 http://ftp-osl.osuosl.org/debian unstable InRelease [146 kB]            
+Hit:33 http://ppa.launchpad.net/webupd8team/java/ubuntu precise InRelease      
+Get:34 https://packages.cloud.google.com/apt cloud-sdk InRelease [6,349 B]     
+Hit:35 https://updates.signal.org/desktop/apt xenial InRelease                 
+Hit:36 http://http.us.debian.org/debian stable InRelease                       
+Hit:37 https://packages.microsoft.com/debian/10/prod buster InRelease          
+Hit:38 https://repo.skype.com/deb stable InRelease                             
+Get:39 http://http.us.debian.org/debian testing InRelease [116 kB]             
+Ign:40 https://dl.bintray.com/zulip/debian stable InRelease                    
+Get:41 https://dl.bintray.com/sbt/debian  Release [815 B]                      
+Hit:42 http://repository.spotify.com stable InRelease                          
+Hit:43 http://download.opensuse.org/repositories/home:/strycore/Debian_10 ./ InRelease
+Hit:18 https://packagecloud.io/AllToMP3/alltomp3/debian buster InRelease       
+Get:44 https://dl.bintray.com/zulip/debian stable Release [1,840 B]            
+Get:45 http://security.debian.org stretch/updates/main i386 Packages [629 kB]  
+Ign:46 http://debian.po8.org testing/main amd64 Contents (deb)                 
+Ign:47 http://debian.po8.org testing/main i386 Contents (deb)                  
+Ign:48 http://debian.po8.org testing/contrib i386 Contents (deb)               
+Ign:49 http://debian.po8.org testing/contrib amd64 Contents (deb)              
+Ign:50 http://debian.po8.org testing/non-free amd64 Contents (deb)             
+Ign:51 http://debian.po8.org testing/non-free i386 Contents (deb)              
+Get:20 http://debian.po8.org testing/main amd64 Packages [7,903 kB]            
+Hit:52 http://ppa.launchpad.net/kivy-team/kivy/ubuntu xenial InRelease         
+Get:53 http://security.debian.org stretch/updates/main amd64 Packages [628 kB] 
+Get:55 http://http.us.debian.org/debian unstable InRelease [146 kB]            
+Get:21 http://debian.po8.org testing/main Translation-en [6,039 kB]            
+Hit:57 http://ppa.launchpad.net/kxstudio-debian/gcc5/ubuntu wily InRelease     
+Get:58 http://http.us.debian.org/debian experimental InRelease [75.4 kB]       
+Get:22 http://debian.po8.org testing/contrib i386 Packages [44.5 kB]           
+Get:23 http://debian.po8.org testing/contrib amd64 Packages [48.4 kB]          
+Get:24 http://debian.po8.org testing/non-free i386 Packages [79.2 kB]          
+Get:25 http://debian.po8.org testing/non-free amd64 Packages [95.2 kB]         
+Get:46 http://debian.po8.org testing/main amd64 Contents (deb) [38.1 MB]       
+Hit:60 http://ppa.launchpad.net/kxstudio-debian/gcc5/ubuntu xenial InRelease   
+Get:61 http://ftp-osl.osuosl.org/debian testing/main Sources [8,492 kB]        
+Hit:62 http://ppa.launchpad.net/kxstudio-debian/gcc5-deps/ubuntu xenial InRelease
+Get:63 https://packages.cloud.google.com/apt cloud-sdk/main i386 Packages [130 kB]
+Get:64 https://packages.cloud.google.com/apt cloud-sdk/main amd64 Packages [147 kB]
+Ign:56 https://kx.studio/repo gcc5 InRelease                                   
+Hit:65 http://ppa.launchpad.net/kxstudio-debian/kxstudio/ubuntu xenial InRelease
+Get:47 http://debian.po8.org testing/main i386 Contents (deb) [38.0 MB]        
+Ign:59 https://kx.studio/repo stable InRelease                                 
+Hit:68 http://ppa.launchpad.net/kxstudio-debian/libs/ubuntu lucid InRelease    
+Hit:66 https://kx.studio/repo gcc5 Release                                     
+Hit:69 https://kx.studio/repo stable Release                                   
+Hit:71 http://ppa.launchpad.net/kxstudio-debian/music/ubuntu lucid InRelease   
+Get:48 http://debian.po8.org testing/contrib i386 Contents (deb) [79.7 kB]     
+Get:49 http://debian.po8.org testing/contrib amd64 Contents (deb) [97.9 kB]    
+Ign:72 http://debian.po8.org unstable/main i386 Contents (deb).diff/Index      
+Ign:73 http://debian.po8.org unstable/main amd64 Contents (deb).diff/Index     
+Ign:72 http://debian.po8.org unstable/main i386 Contents (deb).diff/Index      
+Ign:73 http://debian.po8.org unstable/main amd64 Contents (deb).diff/Index     
+Get:50 http://debian.po8.org testing/non-free amd64 Contents (deb) [914 kB]    
+Get:74 http://http.us.debian.org/debian testing/contrib Sources [41.6 kB]      
+Hit:75 http://ppa.launchpad.net/kxstudio-debian/plugins/ubuntu lucid InRelease 
+Get:51 http://debian.po8.org testing/non-free i386 Contents (deb) [869 kB]     
+Ign:76 http://debian.po8.org unstable/main amd64 Packages                      
+Ign:77 http://debian.po8.org unstable/main i386 Packages                       
+Ign:78 http://debian.po8.org unstable/main Translation-en                      
+Ign:79 http://debian.po8.org unstable/main i386 Contents (deb)                 
+Ign:80 http://debian.po8.org unstable/main amd64 Contents (deb)                
+Get:76 http://debian.po8.org unstable/main amd64 Packages [8,531 kB]           
+Get:81 http://http.us.debian.org/debian testing/main i386 Contents (deb).diff/Index [37.1 kB]
+Get:82 http://http.us.debian.org/debian testing/main amd64 Contents (deb).diff/Index [37.1 kB]
+Get:83 http://http.us.debian.org/debian testing/contrib amd64 Contents (deb).diff/Index [36.9 kB]
+Get:84 http://http.us.debian.org/debian testing/contrib i386 Contents (deb).diff/Index [36.9 kB]
+Get:85 http://http.us.debian.org/debian testing/non-free amd64 Contents (deb).diff/Index [10.1 kB]
+Get:86 http://http.us.debian.org/debian testing/non-free i386 Contents (deb).diff/Index [10.1 kB]
+Get:87 http://http.us.debian.org/debian unstable/main amd64 Contents (deb).diff/Index [37.1 kB]
+Hit:88 http://ppa.launchpad.net/kxstudio-debian/apps/ubuntu lucid InRelease    
+Get:89 http://http.us.debian.org/debian unstable/main i386 Contents (deb).diff/Index [37.1 kB]
+Get:90 http://http.us.debian.org/debian experimental/main amd64 Contents (deb).diff/Index [37.0 kB]
+Get:77 http://debian.po8.org unstable/main i386 Packages [8,461 kB]            
+Get:91 http://http.us.debian.org/debian experimental/main all Contents (deb).diff/Index [37.0 kB]
+Get:92 http://http.us.debian.org/debian experimental/main i386 Contents (deb).diff/Index [37.0 kB]
+Get:93 http://http.us.debian.org/debian testing/main i386 Contents (deb) 2020-11-29-0219.14.pdiff [16.5 kB]
+Get:94 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb).diff/Index [37.1 kB]
+Get:95 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb).diff/Index [37.1 kB]
+Get:96 http://ftp-osl.osuosl.org/debian testing/contrib i386 Contents (deb).diff/Index [36.9 kB]
+Get:97 http://ftp-osl.osuosl.org/debian testing/contrib amd64 Contents (deb).diff/Index [36.9 kB]
+Get:78 http://debian.po8.org unstable/main Translation-en [6,419 kB]           
+Get:98 http://ftp-osl.osuosl.org/debian testing/non-free i386 Contents (deb).diff/Index [10.1 kB]
+Get:99 http://ftp-osl.osuosl.org/debian testing/non-free amd64 Contents (deb).diff/Index [10.1 kB]
+Get:100 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb).diff/Index [37.1 kB]
+Get:101 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb).diff/Index [37.1 kB]
+Get:102 http://http.us.debian.org/debian testing/main i386 Contents (deb) 2020-11-29-0817.09.pdiff [473 B]
+Get:103 http://http.us.debian.org/debian testing/main i386 Contents (deb) 2020-11-29-1418.59.pdiff [6,408 B]
+Get:104 http://http.us.debian.org/debian testing/main i386 Contents (deb) 2020-11-29-2016.39.pdiff [34 B]
+Get:105 http://http.us.debian.org/debian testing/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [19.6 kB]
+Hit:106 http://ppa.launchpad.net/kxstudio-debian/kxstudio/ubuntu lucid InRelease
+Get:107 http://http.us.debian.org/debian testing/main amd64 Contents (deb) 2020-11-29-0219.14.pdiff [16.2 kB]
+Get:108 http://http.us.debian.org/debian testing/main amd64 Contents (deb) 2020-11-29-0817.09.pdiff [633 B]
+Get:109 http://http.us.debian.org/debian testing/main amd64 Contents (deb) 2020-11-29-1418.59.pdiff [6,380 B]
+Get:105 http://http.us.debian.org/debian testing/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [19.6 kB]
+Get:111 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb) 2020-11-29-0219.14.pdiff [16.5 kB]
+Get:112 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb) 2020-11-29-0817.09.pdiff [473 B]
+Get:113 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb) 2020-11-29-1418.59.pdiff [6,408 B]
+Get:114 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb) 2020-11-29-2016.39.pdiff [34 B]
+Get:115 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [19.6 kB]
+Get:116 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb) 2020-11-29-0219.14.pdiff [16.2 kB]
+Get:115 http://ftp-osl.osuosl.org/debian testing/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [19.6 kB]
+Get:117 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb) 2020-11-29-0817.09.pdiff [633 B]
+Get:118 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb) 2020-11-29-1418.59.pdiff [6,380 B]
+Get:119 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb) 2020-11-29-2016.39.pdiff [34 B]
+Get:120 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [19.5 kB]
+Get:120 http://ftp-osl.osuosl.org/debian testing/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [19.5 kB]
+Get:121 http://http.us.debian.org/debian testing/main amd64 Contents (deb) 2020-11-29-2016.39.pdiff [34 B]
+Get:122 http://http.us.debian.org/debian testing/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [19.5 kB]
+Get:123 http://http.us.debian.org/debian testing/contrib amd64 Contents (deb) 2020-11-29-0219.14.pdiff [408 B]
+Get:124 http://ftp-osl.osuosl.org/debian testing/contrib i386 Contents (deb) 2020-11-29-0219.14.pdiff [406 B]
+Get:125 http://ftp-osl.osuosl.org/debian testing/contrib i386 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:126 http://ftp-osl.osuosl.org/debian testing/contrib amd64 Contents (deb) 2020-11-29-0219.14.pdiff [408 B]
+Get:127 http://ftp-osl.osuosl.org/debian testing/contrib amd64 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:128 http://ftp-osl.osuosl.org/debian testing/non-free i386 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:122 http://http.us.debian.org/debian testing/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [19.5 kB]
+Get:129 http://ftp-osl.osuosl.org/debian testing/non-free amd64 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:127 http://ftp-osl.osuosl.org/debian testing/contrib amd64 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:125 http://ftp-osl.osuosl.org/debian testing/contrib i386 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:130 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb) 2020-11-29-0219.14.pdiff [340 B]
+Get:128 http://ftp-osl.osuosl.org/debian testing/non-free i386 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:131 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb) 2020-11-29-0817.09.pdiff [601 B]
+Get:132 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb) 2020-11-29-1418.59.pdiff [931 B]
+Get:133 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb) 2020-11-29-2016.39.pdiff [1,016 B]
+Get:129 http://ftp-osl.osuosl.org/debian testing/non-free amd64 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:79 http://debian.po8.org unstable/main i386 Contents (deb) [42.2 MB]       
+Get:134 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [775 B]
+Get:135 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb) 2020-11-29-0219.14.pdiff [509 B]
+Get:136 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb) 2020-11-29-0817.09.pdiff [594 B]
+Get:137 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb) 2020-11-29-1418.59.pdiff [862 B]
+Get:138 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb) 2020-11-29-2016.39.pdiff [1,941 B]
+Get:134 http://ftp-osl.osuosl.org/debian unstable/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [775 B]
+Get:139 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [774 B]
+Get:139 http://ftp-osl.osuosl.org/debian unstable/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [774 B]
+Get:140 http://http.us.debian.org/debian testing/contrib amd64 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:141 http://ftp-osl.osuosl.org/debian testing/contrib Sources [41.6 kB]     
+Get:142 http://ftp-osl.osuosl.org/debian testing/non-free Sources [80.2 kB]    
+Get:143 http://http.us.debian.org/debian testing/contrib i386 Contents (deb) 2020-11-29-0219.14.pdiff [406 B]
+Get:144 http://http.us.debian.org/debian testing/contrib i386 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:145 http://http.us.debian.org/debian testing/non-free amd64 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:146 http://http.us.debian.org/debian testing/non-free i386 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:147 http://http.us.debian.org/debian unstable/main amd64 Contents (deb) 2020-11-29-0219.14.pdiff [340 B]
+Get:148 http://http.us.debian.org/debian unstable/main amd64 Contents (deb) 2020-11-29-0817.09.pdiff [601 B]
+Get:140 http://http.us.debian.org/debian testing/contrib amd64 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:149 http://ftp-osl.osuosl.org/debian testing/main amd64 Packages [7,905 kB]
+Get:144 http://http.us.debian.org/debian testing/contrib i386 Contents (deb) 2020-11-30-0213.37.pdiff [37 B]
+Get:146 http://http.us.debian.org/debian testing/non-free i386 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:145 http://http.us.debian.org/debian testing/non-free amd64 Contents (deb) 2020-11-29-0219.14.pdiff [43 B]
+Get:150 http://http.us.debian.org/debian unstable/main amd64 Contents (deb) 2020-11-29-1418.59.pdiff [931 B]
+Get:151 http://http.us.debian.org/debian unstable/main amd64 Contents (deb) 2020-11-29-2016.39.pdiff [1,016 B]
+Get:152 http://http.us.debian.org/debian unstable/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [775 B]
+Get:152 http://http.us.debian.org/debian unstable/main amd64 Contents (deb) 2020-11-30-0213.37.pdiff [775 B]
+Hit:153 http://ppa.launchpad.net/kxstudio-debian/libs/ubuntu trusty InRelease  
+Get:154 http://http.us.debian.org/debian unstable/main i386 Contents (deb) 2020-11-29-0219.14.pdiff [509 B]
+Get:155 http://http.us.debian.org/debian unstable/main i386 Contents (deb) 2020-11-29-0817.09.pdiff [594 B]
+Get:156 http://http.us.debian.org/debian unstable/main i386 Contents (deb) 2020-11-29-1418.59.pdiff [862 B]
+Get:157 http://http.us.debian.org/debian unstable/main i386 Contents (deb) 2020-11-29-2016.39.pdiff [1,941 B]
+Get:158 http://http.us.debian.org/debian unstable/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [774 B]
+Get:159 http://http.us.debian.org/debian experimental/main amd64 Contents (deb) 2020-11-29-0219.14.pdiff [69 B]
+Get:160 http://http.us.debian.org/debian experimental/main amd64 Contents (deb) 2020-11-29-0817.09.pdiff [68 B]
+Get:158 http://http.us.debian.org/debian unstable/main i386 Contents (deb) 2020-11-30-0213.37.pdiff [774 B]
+Get:161 http://http.us.debian.org/debian experimental/main amd64 Contents (deb) 2020-11-29-1418.59.pdiff [6,490 B]
+Get:162 http://http.us.debian.org/debian experimental/main amd64 Contents (deb) 2020-11-29-2016.39.pdiff [301 B]
+Get:163 http://http.us.debian.org/debian experimental/main all Contents (deb) 2020-11-29-0219.14.pdiff [46 B]
+Get:162 http://http.us.debian.org/debian experimental/main amd64 Contents (deb) 2020-11-29-2016.39.pdiff [301 B]
+Get:164 http://http.us.debian.org/debian experimental/main all Contents (deb) 2020-11-29-0817.09.pdiff [45 B]
+Get:165 http://http.us.debian.org/debian experimental/main all Contents (deb) 2020-11-29-1418.59.pdiff [7,594 B]
+Get:166 http://http.us.debian.org/debian experimental/main all Contents (deb) 2020-11-29-2016.39.pdiff [12.0 kB]
+Get:167 http://http.us.debian.org/debian experimental/main i386 Contents (deb) 2020-11-29-0219.14.pdiff [67 B]
+Get:168 http://http.us.debian.org/debian experimental/main i386 Contents (deb) 2020-11-29-0817.09.pdiff [69 B]
+Get:166 http://http.us.debian.org/debian experimental/main all Contents (deb) 2020-11-29-2016.39.pdiff [12.0 kB]
+Get:169 http://http.us.debian.org/debian experimental/main i386 Contents (deb) 2020-11-29-1418.59.pdiff [818 B]
+Get:170 http://http.us.debian.org/debian experimental/main i386 Contents (deb) 2020-11-29-2016.39.pdiff [300 B]
+Get:170 http://http.us.debian.org/debian experimental/main i386 Contents (deb) 2020-11-29-2016.39.pdiff [300 B]
+Get:172 http://http.us.debian.org/debian testing/non-free Sources [80.2 kB]    
+Hit:173 http://ppa.launchpad.net/kxstudio-debian/music/ubuntu trusty InRelease 
+Get:174 http://http.us.debian.org/debian testing/main Sources [8,492 kB]       
+Hit:175 http://ppa.launchpad.net/kxstudio-debian/plugins/ubuntu trusty InRelease
+Hit:176 http://ppa.launchpad.net/kxstudio-debian/apps/ubuntu trusty InRelease  
+Get:80 http://debian.po8.org unstable/main amd64 Contents (deb) [42.4 MB]      
+Hit:177 http://ppa.launchpad.net/kxstudio-debian/kxstudio/ubuntu trusty InRelease
+Get:178 http://ftp-osl.osuosl.org/debian testing/main i386 Packages [7,850 kB] 
+Hit:179 http://ppa.launchpad.net/noobslab/apps/ubuntu trusty InRelease         
+Get:180 http://http.us.debian.org/debian testing/main amd64 Packages [7,905 kB]
+Get:181 http://ftp-osl.osuosl.org/debian testing/main Translation-en [6,042 kB]
+Get:182 http://http.us.debian.org/debian testing/main i386 Packages [7,850 kB] 
+Get:183 http://ftp-osl.osuosl.org/debian testing/contrib i386 Packages [44.4 kB]
+Get:184 http://ftp-osl.osuosl.org/debian testing/contrib amd64 Packages [48.4 kB]
+Get:185 http://ftp-osl.osuosl.org/debian testing/non-free amd64 Packages [95.2 kB]
+Get:186 http://ftp-osl.osuosl.org/debian testing/non-free i386 Packages [79.2 kB]
+Get:187 http://ftp-osl.osuosl.org/debian unstable/main Sources [9,049 kB]      
+Get:188 http://http.us.debian.org/debian testing/main Translation-en [6,042 kB]
+Get:189 http://ftp-osl.osuosl.org/debian unstable/main i386 Packages [8,461 kB]
+Get:190 http://http.us.debian.org/debian testing/contrib amd64 Packages [48.4 kB]
+Get:191 http://http.us.debian.org/debian testing/contrib i386 Packages [44.4 kB]
+Get:192 http://http.us.debian.org/debian testing/non-free i386 Packages [79.2 kB]
+Get:193 http://http.us.debian.org/debian testing/non-free amd64 Packages [95.2 kB]
+Get:194 http://http.us.debian.org/debian unstable/main Sources [9,049 kB]      
+Get:195 http://ftp-osl.osuosl.org/debian unstable/main amd64 Packages [8,531 kB]
+Get:196 http://http.us.debian.org/debian unstable/main amd64 Packages [8,531 kB]
+Get:197 http://ftp-osl.osuosl.org/debian unstable/main Translation-en [6,420 kB]
+Get:198 http://http.us.debian.org/debian unstable/main i386 Packages [8,461 kB]
+Get:199 http://http.us.debian.org/debian unstable/main Translation-en [6,420 kB]
+Get:200 http://http.us.debian.org/debian experimental/main Sources [330 kB]    
+Get:201 http://http.us.debian.org/debian experimental/main amd64 Packages [416 kB]
+Get:202 http://http.us.debian.org/debian experimental/main i386 Packages [404 kB]
+Get:203 http://http.us.debian.org/debian experimental/main Translation-en [251 kB]
+Fetched 339 MB in 42s (8,004 kB/s)                                             
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  python3-crcmod
+Suggested packages:
+  google-cloud-sdk-app-engine-java google-cloud-sdk-app-engine-python
+  google-cloud-sdk-pubsub-emulator google-cloud-sdk-bigtable-emulator
+  google-cloud-sdk-datastore-emulator kubectl
+The following NEW packages will be installed:
+  google-cloud-sdk python3-crcmod
+0 upgraded, 2 newly installed, 0 to remove and 797 not upgraded.
+Need to get 71.6 MB of archives.
+After this operation, 413 MB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+Get:1 http://debian.po8.org testing/main amd64 python3-crcmod amd64 1.7+dfsg-2+b3 [20.4 kB]
+Get:2 https://packages.cloud.google.com/apt cloud-sdk/main amd64 google-cloud-sdk all 319.0.0-0 [71.6 MB]
+Fetched 71.6 MB in 4s (19.6 MB/s)            
+Selecting previously unselected package python3-crcmod.
+(Reading database ... 899828 files and directories currently installed.)
+Preparing to unpack .../python3-crcmod_1.7+dfsg-2+b3_amd64.deb ...
+Unpacking python3-crcmod (1.7+dfsg-2+b3) ...
+Selecting previously unselected package google-cloud-sdk.
+Preparing to unpack .../google-cloud-sdk_319.0.0-0_all.deb ...
+Unpacking google-cloud-sdk (319.0.0-0) ...
+Setting up python3-crcmod (1.7+dfsg-2+b3) ...
+Setting up google-cloud-sdk (319.0.0-0) ...
+Processing triggers for man-db (2.9.3-2) ...
+
+
+Scanning processes...                                                           
+Scanning candidates...                                                          
+Scanning processor microcode...                                                 
+Scanning linux images...                                                        
+
+Running kernel seems to be up-to-date.
+
+The processor microcode seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+User sessions running outdated binaries:
+ bart @ session #2: xfce4-session[1850]
+$ sudo apt install docker
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  wmdocker
+The following NEW packages will be installed:
+  docker wmdocker
+0 upgraded, 2 newly installed, 0 to remove and 797 not upgraded.
+Need to get 15.3 kB of archives.
+After this operation, 58.4 kB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+Get:1 http://debian.po8.org stable/main amd64 wmdocker amd64 1.5-2 [12.8 kB]
+Get:2 http://debian.po8.org stable/main amd64 docker all 1.5-2 [2,556 B]
+Fetched 15.3 kB in 0s (203 kB/s)   
+Selecting previously unselected package wmdocker.
+(Reading database ... 922605 files and directories currently installed.)
+Preparing to unpack .../wmdocker_1.5-2_amd64.deb ...
+Unpacking wmdocker (1.5-2) ...
+Selecting previously unselected package docker.
+Preparing to unpack .../archives/docker_1.5-2_all.deb ...
+Unpacking docker (1.5-2) ...
+Setting up wmdocker (1.5-2) ...
+Processing triggers for man-db (2.9.3-2) ...
+Processing triggers for menu (2.1.48) ...
+Setting up docker (1.5-2) ...
+Scanning processes...                                                           
+Scanning candidates...                                                          
+Scanning processor microcode...                                                 
+Scanning linux images...                                                        
+
+Running kernel seems to be up-to-date.
+
+The processor microcode seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+User sessions running outdated binaries:
+ bart @ session #2: xfce4-session[1850]
+$ gcloud init
+Welcome! This command will take you through the configuration of gcloud.
+
+Your current configuration has been set to: [default]
+
+You can skip diagnostics next time by using the following flag:
+  gcloud init --skip-diagnostics
+
+Network diagnostic detects and fixes local network connection issues.
+Checking network connection...done.                                            
+Reachability Check passed.
+Network diagnostic passed (1/1 checks passed).
+
+You must log in to continue. Would you like to log in (Y/n)?  
+
+Your browser has been opened to visit:
+
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=32555940559.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8085%2F&scope=openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Faccounts.reauth&state=sAKapH12tAOGablBsgUiE6fPpeRizt&access_type=offline&code_challenge=Jj3fNr301eBeQ8E6EnQqNrJGBt8z9W06vbN-G9JKy2k&code_challenge_method=S256
+
+You are logged in as: [bart.massey@gmail.com].
+
+Pick cloud project to use: 
+ [1] cloud-run-demo-297207
+ [2] gfi-demo
+ [3] photo-scan-summary-test
+ [4] psu-cs-capstone-website
+ [5] quickstart-1584679248490
+ [6] Create a new project
+Please enter numeric choice or text value (must exactly match list 
+item):  1
+
+Your current project has been set to: [cloud-run-demo-297207].
+
+Not setting default zone/region (this feature makes it easier to use
+[gcloud compute] by setting an appropriate default value for the
+--zone and --region flag).
+See https://cloud.google.com/compute/docs/gcloud-compute section on how to set
+default compute region and zone manually. If you would like [gcloud init] to be
+able to do this for you the next time you run it, make sure the
+Compute Engine API is enabled for your project on the
+https://console.developers.google.com/apis page.
+
+Created a default .boto configuration file at [/home/bart/.boto]. See this file and
+[https://cloud.google.com/storage/docs/gsutil/commands/config] for more
+information about configuring Google Cloud Storage.
+Your Google Cloud SDK is configured and ready to use!
+
+* Commands that require authentication will use bart.massey@gmail.com by default
+* Commands will reference project `cloud-run-demo-297207` by default
+Run `gcloud help config` to learn how to change individual settings
+
+This gcloud configuration is called [default]. You can create additional configurations if you work with multiple accounts and/or projects.
+Run `gcloud topic configurations` to learn more.
+
+Some things to try next:
+
+* Run `gcloud --help` to see the Cloud Platform services you can interact with. And run `gcloud help COMMAND` to get help on any gcloud command.
+* Run `gcloud topic --help` to learn about advanced features of the SDK like arg files and output formatting
+$ gcloud builds submit --tag gcr.io/cloud-run-demo-297207/helloworld
+ERROR: (gcloud.builds.submit) HTTPError 403: The project to be billed is associated with an absent billing account.
+$ gcloud builds submit --tag gcr.io/cloud-run-demo-297207/helloworld
+ERROR: (gcloud.builds.submit) HTTPError 403: The project to be billed is associated with an absent billing account.
+$ gcloud builds submit --tag gcr.io/cloud-run-demo-297207/helloworld
+Creating temporary tarball archive of 4 file(s) totalling 2.2 KiB before compression.
+Uploading tarball of [.] to [gs://cloud-run-demo-297207_cloudbuild/source/1606721584.298634-11d1cd9bdc37469ebe3722108c6dc73e.tgz]
+API [cloudbuild.googleapis.com] not enabled on project [483634697293].
+ Would you like to enable and retry (this will take a few minutes)? 
+(y/N)?  y
+
+Enabling service [cloudbuild.googleapis.com] on project [483634697293]...
+Operation "operations/acf.1cc0f82e-cb82-4824-80f4-0445f4d6ffd9" finished successfully.
+Created [https://cloudbuild.googleapis.com/v1/projects/cloud-run-demo-297207/builds/85834a1e-3bad-4b1b-9515-32faf8d1180b].
+Logs are available at [https://console.cloud.google.com/cloud-build/builds/85834a1e-3bad-4b1b-9515-32faf8d1180b?project=483634697293].
+----------------------------- REMOTE BUILD OUTPUT ------------------------------
+starting build "85834a1e-3bad-4b1b-9515-32faf8d1180b"
+
+FETCHSOURCE
+Fetching storage object: gs://cloud-run-demo-297207_cloudbuild/source/1606721584.298634-11d1cd9bdc37469ebe3722108c6dc73e.tgz#1606721585429868
+Copying gs://cloud-run-demo-297207_cloudbuild/source/1606721584.298634-11d1cd9bdc37469ebe3722108c6dc73e.tgz#1606721585429868...
+/ [1 files][  1.4 KiB/  1.4 KiB]                                                
+Operation completed over 1 objects/1.4 KiB.                                      
+BUILD
+Already have image (with digest): gcr.io/cloud-builders/docker
+Sending build context to Docker daemon  6.656kB
+Step 1/10 : FROM golang:1.15-buster as builder
+1.15-buster: Pulling from library/golang
+756975cb9c7e: Pulling fs layer
+d77915b4e630: Pulling fs layer
+5f37a0a41b6b: Pulling fs layer
+96b2c1e36db5: Pulling fs layer
+145393847161: Pulling fs layer
+71dfa979a65c: Pulling fs layer
+88a83f11b30a: Pulling fs layer
+96b2c1e36db5: Waiting
+145393847161: Waiting
+71dfa979a65c: Waiting
+88a83f11b30a: Waiting
+d77915b4e630: Verifying Checksum
+d77915b4e630: Download complete
+5f37a0a41b6b: Verifying Checksum
+5f37a0a41b6b: Download complete
+756975cb9c7e: Verifying Checksum
+756975cb9c7e: Download complete
+96b2c1e36db5: Verifying Checksum
+96b2c1e36db5: Download complete
+145393847161: Verifying Checksum
+145393847161: Download complete
+88a83f11b30a: Verifying Checksum
+88a83f11b30a: Download complete
+71dfa979a65c: Verifying Checksum
+71dfa979a65c: Download complete
+756975cb9c7e: Pull complete
+d77915b4e630: Pull complete
+5f37a0a41b6b: Pull complete
+96b2c1e36db5: Pull complete
+145393847161: Pull complete
+71dfa979a65c: Pull complete
+88a83f11b30a: Pull complete
+Digest: sha256:7296926e09dacaa9277b23ee4947c05586a11734f2c64558d9b10de382922661
+Status: Downloaded newer image for golang:1.15-buster
+ ---> 6d8772fbd285
+Step 2/10 : WORKDIR /app
+ ---> Running in bd69f84c4311
+Removing intermediate container bd69f84c4311
+ ---> 3fd93d5f159d
+Step 3/10 : COPY go.* ./
+ ---> 0aa72c92d85b
+Step 4/10 : RUN go mod download
+ ---> Running in c2f06c6077f3
+Removing intermediate container c2f06c6077f3
+ ---> 7d46cf75711a
+Step 5/10 : COPY . ./
+ ---> e822f480b8c6
+Step 6/10 : RUN go build -mod=readonly -v -o server
+ ---> Running in 440c52d6dc17
+github.com/GoogleCloudPlatform/golang-samples/run/helloworld
+Removing intermediate container 440c52d6dc17
+ ---> cd703aad5221
+Step 7/10 : FROM debian:buster-slim
+buster-slim: Pulling from library/debian
+852e50cd189d: Pulling fs layer
+852e50cd189d: Verifying Checksum
+852e50cd189d: Download complete
+852e50cd189d: Pull complete
+Digest: sha256:062bbd9a1a58c9c5b8fc9d83a206371127ef268cfcc65f1a01227c6faebdb212
+Status: Downloaded newer image for debian:buster-slim
+ ---> 79fa6b1da13a
+Step 8/10 : RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y     ca-certificates &&     rm -rf /var/lib/apt/lists/*
+ ---> Running in 43930e9dac3e
++ apt-get update
+Get:1 http://security.debian.org/debian-security buster/updates InRelease [65.4 kB]
+Get:2 http://deb.debian.org/debian buster InRelease [121 kB]
+Get:3 http://deb.debian.org/debian buster-updates InRelease [51.9 kB]
+Get:4 http://security.debian.org/debian-security buster/updates/main amd64 Packages [253 kB]
+Get:5 http://deb.debian.org/debian buster/main amd64 Packages [7906 kB]
+Get:6 http://deb.debian.org/debian buster-updates/main amd64 Packages [7856 B]
+Fetched 8406 kB in 2s (4257 kB/s)
+Reading package lists...
++ DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libssl1.1 openssl
+The following NEW packages will be installed:
+  ca-certificates libssl1.1 openssl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2541 kB of archives.
+After this operation, 6060 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 libssl1.1 amd64 1.1.1d-0+deb10u3 [1538 kB]
+Get:2 http://deb.debian.org/debian buster/main amd64 openssl amd64 1.1.1d-0+deb10u3 [844 kB]
+Get:3 http://deb.debian.org/debian buster-updates/main amd64 ca-certificates all 20200601~deb10u1 [158 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 2541 kB in 0s (15.1 MB/s)
+Selecting previously unselected package libssl1.1:amd64.
+(Reading database ... 6460 files and directories currently installed.)
+Preparing to unpack .../libssl1.1_1.1.1d-0+deb10u3_amd64.deb ...
+Unpacking libssl1.1:amd64 (1.1.1d-0+deb10u3) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../openssl_1.1.1d-0+deb10u3_amd64.deb ...
+Unpacking openssl (1.1.1d-0+deb10u3) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../ca-certificates_20200601~deb10u1_all.deb ...
+Unpacking ca-certificates (20200601~deb10u1) ...
+Setting up libssl1.1:amd64 (1.1.1d-0+deb10u3) ...
+Setting up openssl (1.1.1d-0+deb10u3) ...
+Setting up ca-certificates (20200601~deb10u1) ...
+Updating certificates in /etc/ssl/certs...
+126 added, 0 removed; done.
+Processing triggers for libc-bin (2.28-10) ...
+Processing triggers for ca-certificates (20200601~deb10u1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
++ rm -rf /var/lib/apt/lists/auxfiles /var/lib/apt/lists/deb.debian.org_debian_dists_buster-updates_InRelease /var/lib/apt/lists/deb.debian.org_debian_dists_buster-updates_main_binary-amd64_Packages.lz4 /var/lib/apt/lists/deb.debian.org_debian_dists_buster_InRelease /var/lib/apt/lists/deb.debian.org_debian_dists_buster_main_binary-amd64_Packages.lz4 /var/lib/apt/lists/lock /var/lib/apt/lists/partial /var/lib/apt/lists/security.debian.org_debian-security_dists_buster_updates_InRelease /var/lib/apt/lists/security.debian.org_debian-security_dists_buster_updates_main_binary-amd64_Packages.lz4
+Removing intermediate container 43930e9dac3e
+ ---> b42bb6a00cfa
+Step 9/10 : COPY --from=builder /app/server /app/server
+ ---> 571aad02aba0
+Step 10/10 : CMD ["/app/server"]
+ ---> Running in 5bb3bd8eb109
+Removing intermediate container 5bb3bd8eb109
+ ---> 641ce51200d0
+Successfully built 641ce51200d0
+Successfully tagged gcr.io/cloud-run-demo-297207/helloworld:latest
+PUSH
+Pushing gcr.io/cloud-run-demo-297207/helloworld
+The push refers to repository [gcr.io/cloud-run-demo-297207/helloworld]
+9ea32c1e7568: Preparing
+94e570763d66: Preparing
+f5600c6330da: Preparing
+f5600c6330da: Layer already exists
+9ea32c1e7568: Pushed
+94e570763d66: Pushed
+latest: digest: sha256:ff4f59ce83ac2be4df4c868ec12adc809eeb5415aba03121cfb25a211ae2d29d size: 951
+DONE
+--------------------------------------------------------------------------------
+
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                               IMAGES                                             STATUS
+85834a1e-3bad-4b1b-9515-32faf8d1180b  2020-11-30T07:33:31+00:00  50S       gs://cloud-run-demo-297207_cloudbuild/source/1606721584.298634-11d1cd9bdc37469ebe3722108c6dc73e.tgz  gcr.io/cloud-run-demo-297207/helloworld (+1 more)  SUCCESS
+$ gcloud run deploy --image gcr.io/cloud-run-demo-297207/helloworld --platform managed
+Service name (helloworld):  
+API [run.googleapis.com] not enabled on project [483634697293]. Would 
+you like to enable and retry (this will take a few minutes)? (y/N)?  y
+
+Enabling service [run.googleapis.com] on project [483634697293]...
+Operation "operations/acf.0d2164ff-018d-43c4-8d31-9aa624e7dba9" finished successfully.
+Please specify a region:
+ [1] asia-east1
+ [2] asia-east2
+ [3] asia-northeast1
+ [4] asia-northeast2
+ [5] asia-northeast3
+ [6] asia-south1
+ [7] asia-southeast1
+ [8] asia-southeast2
+ [9] australia-southeast1
+ [10] europe-north1
+ [11] europe-west1
+ [12] europe-west2
+ [13] europe-west3
+ [14] europe-west4
+ [15] europe-west6
+ [16] northamerica-northeast1
+ [17] southamerica-east1
+ [18] us-central1
+ [19] us-east1
+ [20] us-east4
+ [21] us-west1
+ [22] cancel
+Please enter your numeric choice:  21
+
+To make this the default region, run `gcloud config set run/region us-west1`.
+
+Allow unauthenticated invocations to [helloworld] (y/N)?  y
+
+Deploying container to Cloud Run service [helloworld] in project [cloud-run-demo-297207] region [us-west1]
+✓ Deploying new service... Done.                                               
+  ✓ Creating Revision...                                                       
+  ✓ Routing traffic...                                                         
+  ✓ Setting IAM Policy...                                                      
+Done.                                                                          
+Service [helloworld] revision [helloworld-00001-kol] has been deployed and is serving 100 percent of traffic.                                                  
+Service URL: https://helloworld-bmtdq4tcsa-uw.a.run.app                        
+$ gcloud config set run/region us-west1
+Updated property [run/region].
+$ xclipb -out >../helloworld.url
+$ ls
+Dockerfile  go.mod  main.go
+$ more main.go
+// Sample run-helloworld is a minimal Cloud Run service.
+package main
+
+import (
+        "fmt"
+        "log"
+        "net/http"
+        "os"
+)
+
+func main() {
+        log.Print("starting server...")
+        http.HandleFunc("/", handler)
+
+        // Determine port for HTTP service.
+        port := os.Getenv("PORT")
+        if port == "" {
+                port = "8080"
+                log.Printf("defaulting to port %s", port)
+        }
+
+        // Start HTTP server.
+        log.Printf("listening on port %s", port)
+        if err := http.ListenAndServe(":"+port, nil); err != nil {
+                log.Fatal(err)
+        }
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+        name := os.Getenv("NAME")
+        if name == "" {
+                name = "World"
+        }
+        fmt.Fprintf(w, "Hello %s!\n", name)
+}
+$ more Dockerfile 
+# Use the offical golang image to create a binary.
+# This is based on Debian and sets the GOPATH to /go.
+# https://hub.docker.com/_/golang
+FROM golang:1.15-buster as builder
+
+# Create and change to the app directory.
+WORKDIR /app
+
+# Retrieve application dependencies.
+# This allows the container build to reuse cached dependencies.
+# Expecting to copy go.mod and if present go.sum.
+COPY go.* ./
+RUN go mod download
+
+# Copy local code to the container image.
+COPY . ./
+
+# Build the binary.
+RUN go build -mod=readonly -v -o server
+
+# Use the official Debian slim image for a lean production container.
+# https://hub.docker.com/_/debian
+# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-sta
+ge-builds
+FROM debian:buster-slim
+RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
+y \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the binary to the production image from the builder stage.
+COPY --from=builder /app/server /app/server
+
+# Run the web service on container startup.
+CMD ["/app/server"]
+$ 
